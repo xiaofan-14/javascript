@@ -62,7 +62,34 @@ function isClose(left, right) {
     return left === '{' && right === '}';
 }
 
-console.log(isValid("()[]{}"))      // true
-console.log(isValid("([)]"))      // false
-console.log(isValid("{[()]}"))      // true
-console.log(isValid("(((()))"))     // false
+// console.log(isValid("()[]{}"))      // true
+// console.log(isValid("([)]"))      // false
+// console.log(isValid("{[()]}"))      // true
+// console.log(isValid("(((()))"))     // false
+
+function isValid2(s) {
+    const stack = []
+    const map = {
+        '}':'{',
+        ']':'[',
+        ')':'(',
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        const char = s[i]
+        if(char === '(' || char === '{' || char === '['){
+             stack.push(char)
+        } else if(char === ')' || char === '}' || char === ']'){
+          if(stack.length === 0 || stack.pop() !== map[char]){
+              return false
+          }
+        }
+    }
+    return stack.length === 0
+}
+
+console.log("有效的括号 '()[]{}': true ", isValid2("()[]{}"));  // true
+console.log("有效的括号 '(]': false", isValid2("(]"));          // false
+console.log("有效的括号 '{[]}': true ", isValid2("{[]}"));      // true
+console.log("有效的括号 '': true", isValid2(""));              // true
+console.log("有效的括号 '[': false", isValid2("["));            // false
