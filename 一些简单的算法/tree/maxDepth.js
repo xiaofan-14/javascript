@@ -31,7 +31,7 @@ function maxDepth(node) {
     return max + 1
 }
 
-// console.log(maxDepth(tree)); // 输出：4
+console.log(maxDepth(tree)); // 输出：4
 
 function getLevelNodeCounts(root){
     if(!root) return []

@@ -6,7 +6,7 @@
 function twoSum(nums, target) {
     const map = new Map();
 
-    // 计算处 target - 当前项的 差值，如果在map中存在，表示之前有这个项，返回之前存储的索引和当前索引
+    // 计算出 target - 当前项的 差值，如果在map中存在，表示之前有这个项，返回之前存储的索引和当前索引
     for (let i = 0; i < nums.length; i++) {
         const differ = target - nums[i]
         if (map.has(differ)) {

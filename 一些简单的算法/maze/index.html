@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Maze Solver Visualizer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+    canvas {
+      border: 1px solid black;
+      margin-top: 10px;
+      display: block;
+    }
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+<h2>迷宫最短路径可视化 (BFS)</h2>
+<button id="regenerateBtn">生成新迷宫</button>
+<canvas id="mazeCanvas" width="420" height="420"></canvas>
+
+<script>
+  const canvas = document.getElementById("mazeCanvas");
+  const ctx = canvas.getContext("2d");
+  const btn = document.getElementById("regenerateBtn");
+
+  const rows = 21;
+  const cols = 21;
+  const cellSize = 20;
+
+  let maze = [];
+  let start = [1, 0];
+  let end = [rows - 2, cols - 1];
+
+  btn.addEventListener("click", () => {
+    initMaze();
+  });
+
+  function initMaze() {
+    maze = generateMaze(rows, cols);
+    drawMaze();
+    solveMazeVisual();
+  }
+
+  function drawMaze() {
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        ctx.fillStyle = maze[i][j] === 1 ? "#000" : "#fff";
+        ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+
+  function drawCell(i, j, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+  }
+
+  async function solveMazeVisual() {
+    const visited = Array.from({ length: rows }, () => Array(cols).fill(false));
+    const queue = [[...start, [start]]];
+    visited[start[0]][start[1]] = true;
+
+    const dirs = [[0,1],[1,0],[0,-1],[-1,0]];
+
+    while (queue.length > 0) {
+      const [x, y, path] = queue.shift();
+      drawCell(x, y, "#aaf");
+      await sleep(15);
+
+      if (x === end[0] && y === end[1]) {
+        for (const [pi, pj] of path) {
+          drawCell(pi, pj, "#4caf50");
+          await sleep(10);
+        }
+        return;
+      }
+
+      for (const [dx, dy] of dirs) {
+        const nx = x + dx, ny = y + dy;
+        if (nx >= 0 && nx < rows && ny >= 0 && ny < cols &&
+          maze[nx][ny] === 0 && !visited[nx][ny]) {
+          visited[nx][ny] = true;
+          queue.push([nx, ny, [...path, [nx, ny]]]);
+        }
+      }
+    }
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function generateMaze(rows, cols) {
+    if (rows % 2 === 0) rows++;
+    if (cols % 2 === 0) cols++;
+    const maze = Array.from({ length: rows }, () => Array(cols).fill(1));
+    const dirs = [[0,-2],[0,2],[-2,0],[2,0]];
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function isInBounds(x, y) {
+      return x > 0 && x < rows - 1 && y > 0 && y < cols - 1;
+    }
+
+    function carve(x, y) {
+      maze[x][y] = 0;
+      for (const [dx, dy] of shuffle(dirs)) {
+        const nx = x + dx, ny = y + dy;
+        const mx = x + dx / 2, my = y + dy / 2;
+        if (isInBounds(nx, ny) && maze[nx][ny] === 1) {
+          maze[mx][my] = 0;
+          carve(nx, ny);
+        }
+      }
+    }
+
+    carve(1, 1);
+    maze[1][0] = 0;
+    maze[rows - 2][cols - 1] = 0;
+    return maze;
+  }
+
+  // 初始化首个迷宫
+  initMaze();
+</script>
+</body>
+</html>
