@@ -35,7 +35,7 @@ foo.count = 0;
 var i;
 for (i=0; i<10; i++) {
   if (i > 5) {
-    foo(i);
+    foo.call(foo, i)
   }
 }
 // foo: 6
@@ -45,6 +45,17 @@ for (i=0; i<10; i++) {
 
 // foo被调用了多少次？
 console.log(foo.count); // 0 -- 什么？！
-console.log(count)
 
-console.log(this)
+console.log('-'.repeat(10))
+
+function testFunction(){
+  console.log("我的this是", this)
+}
+
+testFunction()
+
+function t1(){
+  this.test = testFunction
+}
+
+new t1().test()
