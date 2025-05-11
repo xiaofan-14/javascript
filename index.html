@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  console.time('foo')
+  function foo(nums, target) {
+    for (let i = 0; i < nums.length; i++) {
+      for (let j = i; j < nums.length; j++) {
+        if (nums[i] + nums[j] === target) {
+          return [i, j]
+        }
+      }
+    }
+    return [-1, -1]
+  }
+  console.log(foo([9, 2, 7, 10], 9))
+  console.timeEnd('foo')
+</script>
+</body>
+</html>
