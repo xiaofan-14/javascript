@@ -6,15 +6,18 @@
 
 // @lc code=start
 function maxProfit(prices: number[]): number {
-  let max = 0
+  let minPrice = Infinity
+  let maxProfit = 0
 
-  for (let i = 0; i < prices.length; i++) {
-    for (let j = i; j < prices.length; j++) {
-      max = Math.max(max, prices[j] - prices[i]);
+  for (const price of prices) {
+    if(price < minPrice){
+      minPrice = price
+    }else{
+      maxProfit = Math.max(maxProfit, price - minPrice)
     }
   }
-
-  return max
+  
+  return maxProfit;
 }
 // @lc code=end
 
