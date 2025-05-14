@@ -9,71 +9,22 @@
 </head>
 <body>
 <!--<script src="./index.js"></script>-->
-<script>
-  "use strict"
-  function baz() {
-    // 当前调用栈是：baz
-    // 因此，当前调用位置是全局作用域
+<script type="module">
+  import useCount from "./myCount.js";
 
-    console.log("baz");
-    bar(); // <-- bar的调用位置
-  }
+  const { createCount } = useCount()
 
-  function bar() {
-    // 当前调用栈是baz -> bar
-    // 因此，当前调用位置在baz中
-
-    console.log("bar");
-    foo(); // <-- foo的调用位置
-  }
-
-  function foo() {
-    // 当前调用栈是baz -> bar -> foo
-    // 因此，当前调用位置在bar中
-
-    console.log("foo");
-  }
-
-  baz(); // <-- baz的调用位置
-  function whoIsThis() {
-    console.log(this === a)  // 这会输出true
-  }
-
-  // let a = {}
-  // let boundFunc = whoIsThis.bind(a)
-  // boundFunc()
-
-  function foo2() {
-    console.log(this);
-  }
-
-  var obj = {
-    a: 2,
-    foo: foo2
+  let obj = {
+    name: 'xiao_fan',
+    age: 18
   };
 
-  setTimeout(foo2.bind(obj), 1500)
+  let t = createCount('user1', obj, { depth: false });
 
-  function doFoo(something) {
-    console.log(this.a, something);
-    return this.a + something;
-  }
+  console.log(t.user1);
 
-  // 简单的辅助绑定函数
-  function bind(fn, args){
-    return function(){
-      return fn.apply(args, arguments)
-    }
-  }
-
-  var obj = {
-    a:2
-  };
-
-  var bar = bind(doFoo, obj);
-
-  var b = bar(3); // 2 3
-  console.log(b); // 5
+  t.user1.name = 'hack';
+  console.log(t.user1);
 </script>
 </body>
 </html>
