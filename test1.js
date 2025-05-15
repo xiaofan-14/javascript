@@ -1,24 +1,12 @@
-function groupAnagrams(strs) {
-  if(strs.length === 0) return [[""]]
+const map = new Map()
+map.set(1, 1)
+map.set(2, 2)
+map.set(3, 3)
 
-  const cache = new Map();
-  for (const str of strs) {
-    const key = JSON.stringify([...str].sort())
-    if(cache.has(key)){
-      cache.set(key, [ ...cache.get(key), str])
-    }else{
-      cache.set(key, [str])
-    }
-  }
+console.log(Array.from(map.keys()))
 
-  let min = 0, res = []
-  for (const value of cache.values()) {
-    if(value.length > min){
-      res.unshift(value.sort())
-    }
-  }
-  return res
-};
 
-const strs = ["eat","tea","tan","ate","nat","bat"]
-console.log(groupAnagrams(strs))
+function t(a) {
+  if (a)
+    return false
+}

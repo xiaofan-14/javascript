@@ -50,6 +50,10 @@ es5后所有属性都具有`writable(可写)`、`enumerable(可枚举)` 和 `con
 ## Getter和Setter
 对象默认的[Put]和[Get]操作分别可以控制属性值的设置和获取。
 
-for...in 遍历对象 for...of遍历数组
+> 最好只使用 for...in 遍历对象, 遍历数组使用 for...of 或者传统的 for
 
-in和hasOwnProperty(..)的区别在于是否查找[Prototype]链
+> in和 hasOwnProperty(..) 的区别在于是否查找 [Prototype] 链
+
+# 遍历
+
+**for..in循环可以用来遍历对象的可枚举属性列表 (包括[[Prototype]]链)**

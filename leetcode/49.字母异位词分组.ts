@@ -6,28 +6,23 @@
 
 // @lc code=start
 function groupAnagrams(strs: string[]): string[][] {
-  if (strs.length === 0) return [[""]]
-
-  const cache = new Map<string, string[]>()
+  const map = new Map<string, string[]>()
 
   for (const str of strs) {
-    const temp = [...str].sort()
-    const key = JSON.stringify(temp)
-    if (cache.has(key)) {
-      cache.set(key, [...cache.get(key), str])
-    } else {
-      cache.set(key, [str])
+    const count = Array(26).fill(0)
+    for (const char of str) {
+      count[char.charCodeAt(0) - 97]++
     }
-  }
-  let min = 0
-  const res = []
-  for (const value of cache.values()) {
-    if(value.length > min){
-      res.unshift(value.sort())
+    // 用分隔符避免混淆 ["1","11"] vs ["11","1"]
+    const key = count.join("#")
+    if (!map.has(key)) {
+      map.set(key, [])
     }
+    map.get(key)!.push(str)
   }
-  return res
-};
+  return Array.from(map.values())
+}
+
 // @lc code=end
 
 const test = ["eat", "tea", "tan", "ate", "nat", "bat"]
