@@ -1,12 +1,13 @@
-const map = new Map()
-map.set(1, 1)
-map.set(2, 2)
-map.set(3, 3)
+const arr = [1, 2, 3, 4]
 
-console.log(Array.from(map.keys()))
-
-
-function t(a) {
-  if (a)
-    return false
+Array.prototype.myForIn = function () {
+  for (const key in this) {
+    if (this.hasOwnProperty(key)) {
+      console.log(this[key])
+    }
+  }
 }
+
+arr.myForIn((...args) => {
+  console.log(args)
+})
