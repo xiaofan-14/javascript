@@ -20,7 +20,7 @@ function deepClone(target: any, map = new WeakMap()) {
 }
 
 const obj = {
-  name: 'Flynn',
+  name: 'me',
   info: {
     age: 21,
     hobbies: ['coding', 'reading']

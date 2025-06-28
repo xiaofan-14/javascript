@@ -40,7 +40,7 @@ function deepClone<T = any>(target: T, map = new WeakMap()): T {
 const sym = Symbol('id')
 // @ts-ignore
 const origin = {
-  name: 'Flynn',
+  name: 'me',
   date: new Date(),
   reg: /abc/gi,
   map: new Map([['a', { x: 1 }]]),
