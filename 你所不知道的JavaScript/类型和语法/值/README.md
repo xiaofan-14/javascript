@@ -1,20 +1,20 @@
 # 值
 
 ### 不是值的值 它们的名称既是类型也是值。
-  1. undefined类型只有一个值，即undefined。
-  2. null类型也只有一个值，即null。
+  1. undefined 类型只有一个值，即 undefined。
+  2. null 类型也只有一个值，即 null。
 
-- null指空值(empty value)。null指曾赋过值，但是目前没有值
-- undefined指没有值(missing value)。undefined指从未赋值
+- null 指空值(empty value)。null指曾赋过值，但是目前没有值
+- undefined 指没有值(missing value)。undefined指从未赋值
 
-按惯例我们用void 0来获得undefined（这主要源自C语言，当然使用void true或其他
+按惯例我们用 `void 0` 来获得undefined（这主要源自C语言，当然使用void true或其他
 void表达式也是可以的）。void 0、void 1和undefined之间并没有实质上的区别。
 
 ## 数组
 
 数组也可以有字符串键值和属性，如果字符串键可以被转为10进制数字会被当作索引使用
 
-类数字可以通过数组工具函数转为真正的数组(indexOf, concat, forEach, slice, Array.from)
+类数组可以通过数组工具函数转为真正的数组(indexOf, concat, forEach, slice, Array.from)
 
 > js中使用`delete`操作符删除数组元素时不会改变数组的长度
 

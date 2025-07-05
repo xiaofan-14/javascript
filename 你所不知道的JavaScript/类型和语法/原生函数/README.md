@@ -1,7 +1,7 @@
 # 原生函数
 
 常用的原生函数有：
--
+
 - String()
 - Number()
 - Boolean()
