@@ -2,8 +2,18 @@ let eventLoop = []
 
 let event
 
-while(true) {
-  if(eventLoop.length > 0){
+eventLoop.push(() => {
+  console.log('event loop')
+})
+
+setTimeout(() => {
+  eventLoop.push(() => {
+    console.log('test add')
+  })
+}, 1500)
+
+setInterval(() => {
+  if (eventLoop.length > 0) {
     event = eventLoop.shift()
     try {
       event()
@@ -11,4 +21,4 @@ while(true) {
       reportError(err)
     }
   }
-}
+}, 100)
