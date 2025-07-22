@@ -28,3 +28,17 @@ Promise的异步特性是基于任务的
 
 一旦有事件需要运行，事件循环就会运行，直到队列清空。事件循环的每一轮称为一个tick。
 用户交互、IO和定时器会向事件队列中加入事件。
+
+> 宏任务 vs 微任务
+
+### 宏任务（macro task）
+
+包括：setTimeout、setInterval、setImmediate（Node）
+
+每次事件循环只执行一个宏任务
+
+#### 微任务（micro task）
+
+包括：Promise.then、queueMicrotask、MutationObserver
+
+每个宏任务结束后会立即清空所有微任务
